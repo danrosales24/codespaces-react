@@ -6,6 +6,10 @@
   flex-direction: column;
   align-items: center;
   font-family: 'Arial', sans-serif;
+  width: 100%;
+  max-width: 600px;
+  min-width: 300px;
+  margin: 0 auto;
 }
 
 h1 {
@@ -26,8 +30,10 @@ input {
   border: 2px solid #ccc;
   outline: none;
   transition: border 0.3s ease;
-  width: 300px;
+  width: 100%;
+  max-width: 400px;
   margin-bottom: 10px;
+  box-sizing: border-box;
 }
 
 input:focus {
@@ -43,6 +49,9 @@ button {
   color: white;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  width: 100%;
+  max-width: 150px;
+  box-sizing: border-box;
 }
 
 button:hover {
@@ -50,25 +59,30 @@ button:hover {
 }
 
 .input-wrapper {
-  position: relative;
-  display: inline-block;
-  width: 300px;
+  position: relative; /* Ensures dropdown is positioned relative to input */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
 }
 
+/* Dropdown Suggestions Styling */
 .suggestions {
   list-style-type: none;
   padding-left: 0;
   margin: 0;
-  position: absolute;
-  top: 45px; /* Position below the input */
-  width: 100%;
+  position: absolute; /* Ensure dropdown is below the input */
+  top: 50px; /* Adjusted for input height */
+  width: 100%; /* Full width of the input */
   background-color: white;
   border: 1px solid #ccc;
   border-radius: 5px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Drop shadow for better look */
   z-index: 1;
-  max-height: 150px;
-  overflow-y: auto;
+  max-height: 150px; /* Limit the height to avoid overflow */
+  overflow-y: auto; /* Allow scrolling if there are many suggestions */
+  box-sizing: border-box; /* Ensure padding doesn't affect size */
 }
 
 .suggestions li {
@@ -82,9 +96,43 @@ button:hover {
   background-color: #f0f0f0;
 }
 
+.suggestions li:active {
+  background-color: #007bff;
+  color: white;
+}
+
+/* Victory Message Animation */
+.victory-message {
+  color: #28a745;
+  font-size: 24px;
+  font-weight: bold;
+  animation: glow 1.5s infinite alternate, scaleUp 0.7s ease-out forwards;
+  margin-top: 20px;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #28a745, 0 0 20px #28a745, 0 0 30px #28a745;
+  }
+  to {
+    text-shadow: 0 0 20px #28a745, 0 0 30px #28a745, 0 0 40px #28a745;
+  }
+}
+
+@keyframes scaleUp {
+  from {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 .history-container {
   margin-top: 20px;
-  width: 80%;
+  width: 100%;
   max-width: 600px;
 }
 
@@ -105,6 +153,19 @@ button:hover {
   display: flex;
   justify-content: space-around;
   margin-top: 10px;
+  opacity: 0;
+  animation: fadeInHint 0.7s forwards; /* Hint animation */
+}
+
+@keyframes fadeInHint {
+  from {
+    opacity: 0;
+    transform: scale(0.5); /* Grow in from smaller size */
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
 }
 
 .hint-box {
@@ -132,6 +193,7 @@ button:hover {
 @media (max-width: 768px) {
   .App {
     margin-top: 30px;
+    max-width: 100%;
   }
 
   h1 {
@@ -142,6 +204,7 @@ button:hover {
   input,
   button {
     width: 100%;
+    max-width: 100%;
   }
 
   .hints-container {
